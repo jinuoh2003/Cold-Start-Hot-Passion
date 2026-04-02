@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  ministack:
+    image: nahuelnucera/ministack:latest
+    container_name: ministack_main
+    ports:
+      - "4566:4566"
+      - "4510-4559:4510-4559"
+    environment:
+      - LAMBDA_EXECUTOR=local
+      - GATEWAY_PORT=4566
+      - LOG_LEVEL=INFO
+      - S3_PERSIST=0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - RDS_BASE_PORT=15432
+      - ELASTICACHE_BASE_PORT=16379
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - ./data/s3:/tmp/ministack-data/s3
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:4566/_ministack/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: ministack-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped

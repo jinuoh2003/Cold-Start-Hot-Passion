@@ -1,0 +1,211 @@
+Attaching to 82c2b53afa52_ministack_main
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main |[0m Traceback (most recent call last):
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+[36m82c2b53afa52_ministack_main |[0m     return _run_code(code, main_globals, None,
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+[36m82c2b53afa52_ministack_main |[0m     exec(code, run_globals)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 33, in <module>
+[36m82c2b53afa52_ministack_main |[0m     main(sys.argv)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/__main__.py", line 14, in main
+[36m82c2b53afa52_ministack_main |[0m     config = LambdaConfigProvider(args)
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 22, in __init__
+[36m82c2b53afa52_ministack_main |[0m     self._api_address = self._parse_api_address()
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/site-packages/awslambdaric/lambda_config.py", line 34, in _parse_api_address
+[36m82c2b53afa52_ministack_main |[0m     return self._environ[self.AWS_LAMBDA_RUNTIME_API]
+[36m82c2b53afa52_ministack_main |[0m   File "/usr/local/lib/python3.9/os.py", line 679, in __getitem__
+[36m82c2b53afa52_ministack_main |[0m     raise KeyError(key) from None
+[36m82c2b53afa52_ministack_main |[0m KeyError: 'AWS_LAMBDA_RUNTIME_API'
+[36m82c2b53afa52_ministack_main exited with code 1
+[0m

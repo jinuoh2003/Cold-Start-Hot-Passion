@@ -1,0 +1,1 @@
+{"statusCode": 200, "body": "{\"message\": \"shm_arrow_zero_copy\", \"payload_size\": 4777780, \"zero_copy_config\": \"shm_arrow_zero_copy\", \"cold_init_ms\": 0.001, \"setup_ms\": 0.0, \"pure_memory_mapping_ms\": 0.424, \"buffer_close_ms\": 0.006, \"process_ms\": 0.0, \"total_ms\": 0.431}"}
