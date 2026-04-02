@@ -1,1 +1,0 @@
-{"statusCode": 200, "body": "{\"message\": \"sucess\", \"record_info\": {}, \"zero_copy_config\": \"default_route\", \"bytes_written\": 71, \"open_buffer_ms\": 0.042, \"serialize_ms\": 0.023, \"write_buffer_ms\": 0.019, \"postprocess_ms\": 0.008, \"handler_total_ms\": 0.093}"}
