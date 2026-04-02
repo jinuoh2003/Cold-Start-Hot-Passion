@@ -91,6 +91,15 @@
       margin-bottom: 12px;
     }
 
+    .metric {
+      background: #3a2508;
+      color: #fbbf24;
+      border-left: 5px solid #f59e0b;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
     .error {
       background: #4a1d1d;
       color: #fca5a5;
@@ -192,6 +201,7 @@
           <div id="baselineResult"></div>
           <div id="shmResult"></div>
           <div id="latencyDiff"></div>
+          <div id="avgImprovementMetric"></div>
         </div>
       </div>
 
@@ -229,6 +239,7 @@
       lastBaselineResult: null,
       lastShmResult: null,
       lastLatencyDiff: null,
+      avgImprovementPct: null,
     };
 
     const invokeBtn = document.getElementById("invokeBtn");
@@ -255,6 +266,10 @@
     }
 
     function fmtMs(value) {
+      return Number(value || 0).toFixed(2);
+    }
+
+    function fmtPct(value) {
       return Number(value || 0).toFixed(2);
     }
 
@@ -312,14 +327,57 @@
       }
     }
 
+    function computeAverageImprovementPct() {
+      const successfulRows = state.history.filter((row) => row.Success === true);
+      const runs = new Map();
+
+      for (const row of successfulRows) {
+        if (!runs.has(row.Run)) {
+          runs.set(row.Run, {});
+        }
+
+        const runEntry = runs.get(row.Run);
+
+        if (row.Series === "Baseline") {
+          runEntry.baseline = row["Latency (ms)"];
+        } else if (row.Series === "eBPF / Zero-Copy") {
+          runEntry.shm = row["Latency (ms)"];
+        }
+      }
+
+      const improvements = [];
+
+      for (const [, runEntry] of runs) {
+        if (
+          typeof runEntry.baseline === "number" &&
+          typeof runEntry.shm === "number" &&
+          runEntry.baseline > 0
+        ) {
+          const pct =
+            ((runEntry.baseline - runEntry.shm) / runEntry.baseline) * 100;
+          improvements.push(pct);
+        }
+      }
+
+      if (improvements.length === 0) {
+        state.avgImprovementPct = null;
+        return;
+      }
+
+      const sum = improvements.reduce((acc, cur) => acc + cur, 0);
+      state.avgImprovementPct = sum / improvements.length;
+    }
+
     function renderResults() {
       const baselineBox = document.getElementById("baselineResult");
       const shmBox = document.getElementById("shmResult");
       const diffBox = document.getElementById("latencyDiff");
+      const avgMetricBox = document.getElementById("avgImprovementMetric");
 
       baselineBox.innerHTML = "";
       shmBox.innerHTML = "";
       diffBox.innerHTML = "";
+      avgMetricBox.innerHTML = "";
 
       if (state.lastBaselineResult) {
         const div = document.createElement("div");
@@ -344,6 +402,13 @@
         div.className = "info";
         div.textContent = `지연 시간 차이 (Baseline - eBPF): ${fmtMs(state.lastLatencyDiff)} ms`;
         diffBox.appendChild(div);
+      }
+
+      if (state.avgImprovementPct !== null) {
+        const div = document.createElement("div");
+        div.className = "metric";
+        div.textContent = `평균 개선율: eBPF / Zero-Copy가 Baseline보다 평균 ${fmtPct(state.avgImprovementPct)}% 더 빠름`;
+        avgMetricBox.appendChild(div);
       }
     }
 
@@ -447,6 +512,7 @@
     }
 
     function renderAll() {
+      computeAverageImprovementPct();
       renderResults();
       renderJsons();
       renderChart();
@@ -487,6 +553,7 @@
       state.lastBaselineResult = null;
       state.lastShmResult = null;
       state.lastLatencyDiff = null;
+      state.avgImprovementPct = null;
       setStatus("대기 중...");
       renderAll();
     }

@@ -10,6 +10,6 @@ awslocal lambda delete-function --function-name stress-test-shm 2>/dev/null
 awslocal lambda create-function \
     --function-name stress-test-shm \
     --runtime python3.9 \
-    --handler integrated_handler1.hello_handler \
+    --handler handler.hello_handler \
     --role arn:aws:iam::000000000000:role/lambda-ex \
     --zip-file fileb://shm_function.zip
