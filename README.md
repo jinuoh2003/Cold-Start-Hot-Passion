@@ -35,6 +35,9 @@ Ubuntu 22.04+ 권장
 ### 1. 시스템 의존성 설치
 eBPF 실행을 위한 커널 도구와 컨테이너 환경을 구축합니다.
 ```code
+# 0. 가상환경 세팅
+python3 -m venv <가상환경 이름>
+
 # 1. 커널 헤더 및 bpfcc-tools 설치
 chmod +x scripts/*.sh
 sudo ./scripts/set_ebpf.sh
