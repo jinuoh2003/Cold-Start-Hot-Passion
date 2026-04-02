@@ -38,6 +38,7 @@ eBPF 실행을 위한 커널 도구와 컨테이너 환경을 구축합니다.
 ```code
 # 0. 가상환경 세팅
 sudo apt-get update
+sudo apt install python3-pip
 sudo apt install python3-venv
 python3 -m venv <가상환경 이름>
 source <가상환경 이름>/bin/activate # 가상환경 진입
