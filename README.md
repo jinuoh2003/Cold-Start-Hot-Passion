@@ -31,7 +31,7 @@ KISIA S-Developer 2026 | toy project
 ````
 
 # How To Start  
-Ubuntu 22.04+ 권장
+Ubuntu 22.04+, python 3.11 권장
 ### 1. 시스템 의존성 설치
 eBPF 실행을 위한 커널 도구와 컨테이너 환경을 구축합니다.
 ```code
