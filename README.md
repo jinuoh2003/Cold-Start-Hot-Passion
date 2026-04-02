@@ -43,7 +43,7 @@ chmod +x scripts/*.sh
 sudo ./scripts/set_ebpf.sh
 
 # 2. Python 라이브러리 및 awslocal 설치
-sudo ./scripts/set_zerocopy.sh
+bash ./scripts/set_zerocopy.sh
 pip install awscli-local
 ````
 
