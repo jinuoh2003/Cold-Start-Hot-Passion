@@ -93,6 +93,8 @@ bash prep_for_web.sh
 ```code
 # 대시보드 의존성 설치
 bash ngrok.sh
+sudo apt install nodejs -y
+sudo apt install npm -y
 npm install
 
 # 실행
