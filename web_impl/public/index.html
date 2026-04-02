@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zero-Copy Lambda Demo</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1220;
+      color: #f5f7fb;
+    }
+
+    .page {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background: #121b2f;
+      border: 1px solid #25314d;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      color: white;
+      background: #2563eb;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    button.secondary {
+      background: #334155;
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 8px;
+      font-size: 15px;
+      color: #cbd5e1;
+    }
+
+    .success {
+      background: #153f2b;
+      color: #7ff0a8;
+      border-left: 5px solid #22c55e;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .info {
+      background: #152f4a;
+      color: #60a5fa;
+      border-left: 5px solid #3b82f6;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .error {
+      background: #4a1d1d;
+      color: #fca5a5;
+      border-left: 5px solid #ef4444;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .json-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    pre {
+      background: #0f172a;
+      border: 1px solid #263246;
+      border-radius: 12px;
+      padding: 14px;
+      overflow: auto;
+      color: #e2e8f0;
+      min-height: 260px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #e5e7eb;
+    }
+
+    th, td {
+      border-bottom: 1px solid #25314d;
+      padding: 10px 8px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .btn-spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255,255,255,0.25);
+      border-top: 3px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      flex-shrink: 0;
+    }
+
+    .btn-spinner.visible {
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .json-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>🚀 Zero-Copy Serverless 최적화 실시간 데모</h1>
+    <p>
+      이 대시보드는 <strong>Baseline 방식</strong>과
+      <strong>eBPF / Shared Memory 방식</strong>을 동시에 호출하여
+      호출 지연 시간을 비교 시각화합니다.
+    </p>
+
+    <div class="layout">
+      <div>
+        <div class="card">
+          <h2>제어 패널</h2>
+
+          <button id="invokeBtn">
+            <span id="invokeSpinner" class="btn-spinner"></span>
+            <span id="invokeBtnLabel">🔥 함수 호출 (Invoke)</span>
+          </button>
+
+          <button id="clearBtn" class="secondary">🗑️ 기록 초기화</button>
+
+          <div id="statusText" class="status">대기 중...</div>
+        </div>
+
+        <div class="card">
+          <h2>호출 결과</h2>
+          <div id="baselineResult"></div>
+          <div id="shmResult"></div>
+          <div id="latencyDiff"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2>실시간 지연 시간 비교</h2>
+          <div id="chart"></div>
+        </div>
+
+        <div class="card">
+          <h3>실시간 호출 기록</h3>
+          <div id="tableWrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="json-grid">
+      <div class="card">
+        <h2>Baseline JSON</h2>
+        <pre id="baselineJson">아직 Baseline 결과가 없습니다.</pre>
+      </div>
+      <div class="card">
+        <h2>eBPF / Zero-Copy JSON</h2>
+        <pre id="shmJson">아직 eBPF / Zero-Copy 결과가 없습니다.</pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const INTERNAL_CLICK_COUNT = 100;
+
+    const state = {
+      history: [],
+      runCount: 0,
+      lastBaselineResult: null,
+      lastShmResult: null,
+      lastLatencyDiff: null,
+    };
+
+    const invokeBtn = document.getElementById("invokeBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const statusText = document.getElementById("statusText");
+    const invokeSpinner = document.getElementById("invokeSpinner");
+    const invokeBtnLabel = document.getElementById("invokeBtnLabel");
+
+    function setStatus(text) {
+      statusText.textContent = text;
+    }
+
+    function setLoading(isLoading) {
+      if (isLoading) {
+        invokeSpinner.classList.add("visible");
+        invokeBtnLabel.textContent = "처리 중...";
+      } else {
+        invokeSpinner.classList.remove("visible");
+        invokeBtnLabel.textContent = "🔥 함수 호출 (Invoke)";
+      }
+
+      invokeBtn.disabled = isLoading;
+      clearBtn.disabled = isLoading;
+    }
+
+    function fmtMs(value) {
+      return Number(value || 0).toFixed(2);
+    }
+
+    async function invokeBatchFromBackend(invokeType) {
+      const res = await fetch("/api/invoke-batch", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          count: INTERNAL_CLICK_COUNT,
+          invokeType
+        })
+      });
+
+      if (!res.ok) {
+        let msg = `HTTP ${res.status}`;
+        try {
+          const errJson = await res.json();
+          if (errJson?.error) msg = errJson.error;
+        } catch {}
+        throw new Error(msg);
+      }
+
+      return await res.json();
+    }
+
+    function appendResultToHistory(result, runId, invokeType, timestampStr) {
+      const zeroCopyData =
+        result?.result && typeof result.result === "object"
+          ? result.result.zero_copy_config ?? "N/A"
+          : "N/A";
+
+      state.history.push({
+        Run: runId,
+        Timestamp: timestampStr,
+        "Invoke Type": invokeType,
+        Series: result.series,
+        "Latency (ms)": result.latency_ms,
+        "Zero-Copy Data": zeroCopyData,
+        Success: result.success,
+        "Function Name": result.function_name,
+        Error: result.error || ""
+      });
+    }
+
+    function storeLastResults(baseline, shm) {
+      state.lastBaselineResult = baseline;
+      state.lastShmResult = shm;
+
+      if (baseline?.success && shm?.success) {
+        state.lastLatencyDiff = baseline.latency_ms - shm.latency_ms;
+      } else {
+        state.lastLatencyDiff = null;
+      }
+    }
+
+    function renderResults() {
+      const baselineBox = document.getElementById("baselineResult");
+      const shmBox = document.getElementById("shmResult");
+      const diffBox = document.getElementById("latencyDiff");
+
+      baselineBox.innerHTML = "";
+      shmBox.innerHTML = "";
+      diffBox.innerHTML = "";
+
+      if (state.lastBaselineResult) {
+        const div = document.createElement("div");
+        div.className = state.lastBaselineResult.success ? "success" : "error";
+        div.textContent = state.lastBaselineResult.success
+          ? `Baseline 호출 성공: ${fmtMs(state.lastBaselineResult.latency_ms)} ms`
+          : `Baseline 호출 실패: ${state.lastBaselineResult.error}`;
+        baselineBox.appendChild(div);
+      }
+
+      if (state.lastShmResult) {
+        const div = document.createElement("div");
+        div.className = state.lastShmResult.success ? "success" : "error";
+        div.textContent = state.lastShmResult.success
+          ? `eBPF / Zero-Copy 호출 성공: ${fmtMs(state.lastShmResult.latency_ms)} ms`
+          : `eBPF / Zero-Copy 호출 실패: ${state.lastShmResult.error}`;
+        shmBox.appendChild(div);
+      }
+
+      if (state.lastLatencyDiff !== null) {
+        const div = document.createElement("div");
+        div.className = "info";
+        div.textContent = `지연 시간 차이 (Baseline - eBPF): ${fmtMs(state.lastLatencyDiff)} ms`;
+        diffBox.appendChild(div);
+      }
+    }
+
+    function renderJsons() {
+      const baselineJson = document.getElementById("baselineJson");
+      const shmJson = document.getElementById("shmJson");
+
+      baselineJson.textContent = state.lastBaselineResult
+        ? JSON.stringify(state.lastBaselineResult.result ?? {}, null, 2)
+        : "아직 Baseline 결과가 없습니다.";
+
+      shmJson.textContent = state.lastShmResult
+        ? JSON.stringify(state.lastShmResult.result ?? {}, null, 2)
+        : "아직 eBPF / Zero-Copy 결과가 없습니다.";
+    }
+
+    function renderChart() {
+      const graphData = state.history.filter((row) => row.Success === true);
+
+      if (graphData.length === 0) {
+        Plotly.purge("chart");
+        return;
+      }
+
+      const baselineRows = graphData.filter((r) => r.Series === "Baseline");
+      const shmRows = graphData.filter((r) => r.Series === "eBPF / Zero-Copy");
+
+      const traces = [
+        {
+          x: baselineRows.map((r) => r.Run),
+          y: baselineRows.map((r) => r["Latency (ms)"]),
+          mode: "lines+markers",
+          name: "Baseline",
+          line: { color: "red" }
+        },
+        {
+          x: shmRows.map((r) => r.Run),
+          y: shmRows.map((r) => r["Latency (ms)"]),
+          mode: "lines+markers",
+          name: "eBPF / Zero-Copy",
+          line: { color: "blue" }
+        }
+      ];
+
+      const layout = {
+        title: "Final-request latency comparison",
+        paper_bgcolor: "#121b2f",
+        plot_bgcolor: "#121b2f",
+        font: { color: "#f5f7fb" },
+        xaxis: { title: "Batch Run" },
+        yaxis: { title: "Latency (ms)" }
+      };
+
+      Plotly.react("chart", traces, layout, { responsive: true });
+    }
+
+    function renderTable() {
+      const wrap = document.getElementById("tableWrap");
+
+      if (state.history.length === 0) {
+        wrap.innerHTML = "<p>표시할 데이터가 없습니다.</p>";
+        return;
+      }
+
+      const rows = state.history.slice(-10);
+
+      let html = `
+        <table>
+          <thead>
+            <tr>
+              <th>Run</th>
+              <th>Timestamp</th>
+              <th>Invoke Type</th>
+              <th>Series</th>
+              <th>Latency (ms)</th>
+              <th>Success</th>
+              <th>Function Name</th>
+              <th>Error</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      for (const row of rows) {
+        html += `
+          <tr>
+            <td>${row.Run}</td>
+            <td>${row.Timestamp}</td>
+            <td>${row["Invoke Type"]}</td>
+            <td>${row.Series}</td>
+            <td>${fmtMs(row["Latency (ms)"])}</td>
+            <td>${row.Success}</td>
+            <td>${row["Function Name"]}</td>
+            <td>${row.Error}</td>
+          </tr>
+        `;
+      }
+
+      html += "</tbody></table>";
+      wrap.innerHTML = html;
+    }
+
+    function renderAll() {
+      renderResults();
+      renderJsons();
+      renderChart();
+      renderTable();
+    }
+
+    async function handleInvoke() {
+      setLoading(true);
+      setStatus("요청을 처리 중입니다...");
+
+      const invokeType = state.runCount === 0 ? "Cold Start" : "Warm Start";
+      const runId = state.runCount + 1;
+      const timestampStr = new Date().toLocaleTimeString("ko-KR", { hour12: false });
+
+      try {
+        const data = await invokeBatchFromBackend(invokeType);
+        const finalBaseline = data.baseline;
+        const finalShm = data.shm;
+
+        appendResultToHistory(finalBaseline, runId, invokeType, timestampStr);
+        appendResultToHistory(finalShm, runId, invokeType, timestampStr);
+
+        state.runCount = runId;
+        storeLastResults(finalBaseline, finalShm);
+        renderAll();
+
+        setStatus("✅ 최종 결과가 표시되었습니다.");
+      } catch (err) {
+        setStatus(`Error: ${err.message || String(err)}`);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    function handleClear() {
+      state.history = [];
+      state.runCount = 0;
+      state.lastBaselineResult = null;
+      state.lastShmResult = null;
+      state.lastLatencyDiff = null;
+      setStatus("대기 중...");
+      renderAll();
+    }
+
+    invokeBtn.addEventListener("click", handleInvoke);
+    clearBtn.addEventListener("click", handleClear);
+
+    renderAll();
+  </script>
+</body>
+</html>
