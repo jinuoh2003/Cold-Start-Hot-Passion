@@ -33,8 +33,8 @@ KISIA S-Developer 2026 | toy project
 # How To Start  
 Ubuntu 22.04+, python 3.11 권장
 ### 1. 시스템 의존성 설치
-eBPF 실행을 위한 커널 도구와 컨테이너 환경을 구축합니다.
-[필수]
+eBPF 실행을 위한 커널 도구와 컨테이너 환경을 구축합니다.  
+🚨 [필수]
   web_impl/prep_for_web.sh, call_base_func.sh, call_shm_func.sh, deploy_base_lambda.sh, deploy_shm_lambda.sh, setup_s3_data.sh 의 최상단 경로는 개인이 해당 레포지토리를 git clone 받은 경로로 변경해주세요!
 ```code
 # 0. 가상환경 세팅
