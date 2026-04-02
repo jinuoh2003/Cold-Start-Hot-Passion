@@ -91,10 +91,12 @@ bash prep_for_web.sh
 실시간으로 지연 시간을 비교하는 웹 인터페이스를 구동합니다.
 ```code
 # 대시보드 의존성 설치
-pip install -r requirements.txt
+bash ngrok.sh
+npm install
 
-# Streamlit 실행
-streamlit run app_v2.py
+# 실행
+node server.js
+ngrok http 3000 (다른 창에서)
 ````
 
 # How to Benchmark
