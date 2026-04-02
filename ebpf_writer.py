@@ -1,27 +1,46 @@
-from bcc import BPF
+import sys
 import os
 import struct
-from shm_registry import InstanceRegistry
+import sys
+from bcc import BPF
 
-# eBPF C 코드: execve를 추적하여 'python' 명령어가 실행될 때 이벤트 전송
+# 1. 경로 설정: 현재 파일의 위치를 기준으로 shm_src 폴더 탐색
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+SHM_SRC_PATH = os.path.join(CURRENT_DIR, "shm_src")
+sys.path.append(SHM_SRC_PATH)
+
+try:
+    from shm_registry import InstanceRegistry
+except ImportError:
+    print(f"[!] Error: shm_registry.py를 {SHM_SRC_PATH}에서 찾을 수 없습니다.")
+    sys.exit(1)
+
+# 2. eBPF C 코드 (헤더 충돌 방지 로직 포함)
 bpf_text = """
-#include <uapi/linux/ptrace.h>
+#define KBUILD_MODNAME "lambda_monitor"
+#include <linux/ptrace.h>
 #include <linux/sched.h>
-
-BPF_PERF_OUTPUT(events);
 
 struct data_t {
     u64 pid;
     char comm[16];
 };
 
+BPF_PERF_OUTPUT(events);
+
+// execve 시스템 콜이 완료되는 시점이 아니라 시작되는 시점에 낚아챕니다.
 int kprobe__sys_execve(struct pt_regs *ctx) {
     struct data_t data = {};
-    data.pid = bpf_get_current_pid_tgid() >> 32;
+    
+    // 현재 프로세스의 PID (TGID) 가져오기
+    u64 pid_tgid = bpf_get_current_pid_tgid();
+    data.pid = pid_tgid >> 32;
+    
+    // 프로세스 이름 가져오기
     bpf_get_current_comm(&data.comm, sizeof(data.comm));
     
-    // 'python' 프로세스(람다 런타임) 시작 감지
-    if (data.comm[0] == 'p' && data.comm[1] == 'y') {
+    // 'python'으로 시작하는 프로세스만 필터링 (람다 런타임)
+    if (data.comm[0] == 'p' && data.comm[1] == 'y' && data.comm[2] == 't') {
         events.perf_submit(ctx, &data, sizeof(data));
     }
     return 0;
@@ -29,29 +48,43 @@ int kprobe__sys_execve(struct pt_regs *ctx) {
 """
 
 def main():
-    print("[*] eBPF Pre-emptive Warming Daemon 실행 중... (Ctrl+C로 종료)")
-    b = BPF(text=bpf_text)
-    
-    # Python 레벨의 공유 메모리 레지스트리 연결
-    registry = InstanceRegistry()
+    # eBPF는 루트 권한 필요
+    if os.geteuid() != 0:
+        print("[!] Error: eBPF를 실행하려면 sudo 권한이 필요합니다.")
+        sys.exit(1)
 
-    def print_event(cpu, data, size):
-        event = b["events"].event(data)
-        pid = event.pid
-        comm = event.comm.decode('utf-8', 'replace')
-        
-        # 커널이 람다 컨테이너의 시작을 감지하면 SHM 레지스트리에 STARTING 상태 즉시 기록
-        print(f"[eBPF] 컨테이너 시작 감지! PID: {pid} ({comm}) -> SHM Registry 사전 등록 중...")
-        registry.update_status(pid, status=1) # 1 = STARTING 상태
-
-    b["events"].open_perf_buffer(print_event)
+    print("[*] eBPF Pre-emptive Warming Daemon 실행 중...")
+    print("[*] 람다 컨테이너(Python)의 생성을 감지하여 공유 메모리에 즉시 등록합니다.")
     
     try:
+        # BPF 컴파일 및 로드
+        b = BPF(text=bpf_text)
+        registry = InstanceRegistry()
+        
+        def print_event(cpu, data, size):
+            event = b["events"].event(data)
+            pid = event.pid
+            comm = event.comm.decode('utf-8', 'replace')
+            
+            # 커널 레벨에서 감지하자마자 SHM Registry에 'STARTING(1)'으로 등록
+            registry.update_status(pid, status=1)
+            print(f"  >> [eBPF Detect] PID: {pid} ({comm}) -> SHM Registry Marked as STARTING")
+
+        b["events"].open_perf_buffer(print_event)
+        
+        print("[+] 모니터링 시작. (종료: Ctrl+C)")
         while True:
             b.perf_buffer_poll()
+            
+    except Exception as e:
+        print(f"[!] BPF Error: {e}")
+        if "address_space" in str(e):
+            print("[i] 힌트: 커널 헤더 충돌은 보통 무시해도 되지만, 에러가 지속되면 헤더 패키지를 재설치하세요.")
     except KeyboardInterrupt:
-        print("\n[*] 종료 중...")
-        registry.close()
+        print("\n[*] 데몬을 종료합니다.")
+    finally:
+        if 'registry' in locals():
+            registry.close()
 
 if __name__ == "__main__":
     main()
