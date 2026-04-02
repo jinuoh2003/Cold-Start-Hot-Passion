@@ -37,11 +37,11 @@ eBPF 실행을 위한 커널 도구와 컨테이너 환경을 구축합니다.
   web_impl/prep_for_web.sh, call_base_func.sh, call_shm_func.sh, deploy_base_lambda.sh, deploy_shm_lambda.sh, setup_s3_data.sh 의 최상단 경로는 개인이 해당 레포지토리를 git clone 받은 경로로 변경해주세요!
 ```code
 # 0. 가상환경 세팅
-sudo apt-get update
-sudo apt install python3-pip
 sudo apt install python3-venv
 python3 -m venv <가상환경 이름>
 source <가상환경 이름>/bin/activate # 가상환경 진입
+sudo apt-get update
+sudo apt install python3-pip
 
 # 1. 커널 헤더 및 bpfcc-tools 설치
 chmod +x scripts/*.sh
