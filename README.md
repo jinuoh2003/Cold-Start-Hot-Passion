@@ -55,28 +55,21 @@ export PATH=$PATH:/home/ubuntu/.local/bin
 python3 -m pip config set global.break-system-packages true
 ````
 
-### 2. 공유 메모리 세팅
-컨테이너가 뜰 때 즉시 참조할 대용량 메타데이터를 호스트 메모리에 미리 굽습니다.
-````code
-# /dev/shm/lambda_arrow_data 생성 (약 10만 건의 라우팅 데이터)
-python3 shm_src/bake_arrow_shm.py
-````
-
-### 3. eBPF 커널 트레이서 가동
+### 2. eBPF kernel tracer 가동
 시스템 콜을 감시하고 이벤트를 공유 메모리에 기록하는 프로세스를 실행합니다. 이것은 별도의 터미널 창에서 수행해야 합니다.
 ````code
 # 커널 레벨 추적을 위해 sudo 권한 필요
 sudo python3 ebpf_writer.py
 ````
 
-### 4. MiniStack 인프라 구동
+### 3. MiniStack infra 구동
 호스트의 IPC 네임스페이스와 /dev/shm을 공유하도록 설정된 실험군 환경을 실행합니다.
 ````code
 cd shm_src
 sudo docker-compose up -d
 ````
 
-### 5. Lambda 함수 빌드 및 배포
+### 4. Lambda function 빌드 및 배포
 각 환경의 Docker 이미지를 빌드하고 로컬 클라우드 환경에 등록합니다.
 ````code
 # web_impl 디렉토리의 배포 스크립트 활용
@@ -87,7 +80,7 @@ bash clear_before_start.sh
 bash prep_for_web.sh
 ````
 
-### 6. 성능 비교 대시보드 실행
+### 5. 성능 비교 대시보드 실행
 실시간으로 지연 시간을 비교하는 웹 인터페이스를 구동합니다.
 'ngrok http <포트>'는 다른 터미널 창에서 실행해주세요.
 ```code
