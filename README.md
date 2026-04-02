@@ -54,9 +54,12 @@ export PATH=$PATH:/home/ubuntu/.local/bin
 python3 -m pip config set global.break-system-packages true
 ````
 
-### 2. eBPF kernel tracer 가동
+### 2. eBPF kernel shared memory 및 tracer 가동
 시스템 콜을 감시하고 이벤트를 공유 메모리에 기록하는 프로세스를 실행합니다. 이것은 별도의 터미널 창에서 수행해야 합니다.
 ````code
+# shared memory path 구축
+python3 shm_src/bake_arrow_shm.py
+
 # 커널 레벨 추적을 위해 sudo 권한 필요
 sudo python3 ebpf_writer.py
 ````
