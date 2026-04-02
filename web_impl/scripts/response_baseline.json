@@ -1,1 +1,0 @@
-{"statusCode": 200, "body": "{\"message\": \"baseline_urllib_sigv4\", \"payload_size\": 52428800, \"zero_copy_config\": \"baseline_urllib_sigv4\", \"cold_init_ms\": 0.0, \"setup_ms\": 0.17, \"pure_memory_copy_ms\": 80.401, \"pure_memory_mapping_ms\": 0.0, \"buffer_teardown_ms\": 0.002, \"process_ms\": 0.0, \"total_ms\": 80.573}"}
