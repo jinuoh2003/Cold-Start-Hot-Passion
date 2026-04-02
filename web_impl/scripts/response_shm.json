@@ -1,1 +1,0 @@
-{"statusCode": 200, "body": "{\"message\": \"shm_global_registry_success\", \"pid\": 52676, \"cold_init_ms\": 0.059, \"zero_copy_config\": \"default_routing\", \"process_ms\": 0.0}"}
