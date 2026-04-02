@@ -92,6 +92,6 @@ streamlit run app_v2.py
 2. 좌측 패널의 "100회 자동 테스트" 클릭  
 3. 우측 패널에서 Baseline (Network I/O) vs SHM (Zero-copy)의 성능 차이 실시간 확인
 
-# references
+# References
 - cilium/ebpf (https://github.com/cilium/ebpf)
 - ministack (https://github.com/Nahuel990/ministack)
