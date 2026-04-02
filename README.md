@@ -36,6 +36,7 @@ Ubuntu 22.04+ 권장
 eBPF 실행을 위한 커널 도구와 컨테이너 환경을 구축합니다.
 ```code
 # 0. 가상환경 세팅
+sudo apt-get update
 python3 -m venv <가상환경 이름>
 
 # 1. 커널 헤더 및 bpfcc-tools 설치
@@ -76,8 +77,7 @@ cd ../web_impl
 
 # 기존 자원 정리 및 함수 배포
 bash clear_before_start.sh
-bash deploy_base_lambda.bash
-bash deploy_shm_lambda.bash
+bash prep_for_web.sh
 ````
 
 ### 6. 성능 비교 대시보드 실행
