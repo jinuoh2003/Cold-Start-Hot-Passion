@@ -47,6 +47,10 @@ sudo ./scripts/set_ebpf.sh
 bash ./scripts/set_zerocopy.sh
 pip install awscli-local
 ````
+[주의] externally-managed-environment 에러 발생 시:
+````code
+python3 -m pip config set global.break-system-packages true
+````
 
 ### 2. 공유 메모리 세팅
 컨테이너가 뜰 때 즉시 참조할 대용량 메타데이터를 호스트 메모리에 미리 굽습니다.
