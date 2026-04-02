@@ -10,7 +10,6 @@ def init_buffer():
 
     buf = mmap.mmap(fd, BUF_SIZE, mmap.MAP_SHARED, mmap.PROT_WRITE | mmap.PROT_READ)
 
-    # head, tail 초기화
     buf[0:8] = (0).to_bytes(8, "little")
     buf[8:16] = (0).to_bytes(8, "little")
 

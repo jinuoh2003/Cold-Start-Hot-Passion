@@ -17,14 +17,10 @@ services:
       - RDS_BASE_PORT=15432
       - ELASTICACHE_BASE_PORT=16379
       - DOCKER_HOST=unix:///var/run/docker.sock
-      # [추가] MiniStack이 람다 컨테이너를 생성할 때 사용할 Docker 옵션 정의
-      # -v /dev/shm:/dev/shm: 호스트의 공유메모리를 람다 컨테이너에 마운트
-      # --ipc=host: 호스트의 IPC 네임스페이스를 공유하여 Zero-copy 통신 허용
       - LAMBDA_DOCKER_FLAGS=-v /dev/shm:/dev/shm --ipc=host
     volumes:
       - ./data/s3:/tmp/ministack-data/s3
       - /var/run/docker.sock:/var/run/docker.sock
-      # [추가] 호스트의 /dev/shm을 MiniStack 컨테이너에도 마운트
       - /dev/shm:/dev/shm
     depends_on:
       redis:
