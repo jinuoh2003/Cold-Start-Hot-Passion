@@ -49,6 +49,7 @@ pip install awscli-local
 ````
 [주의] externally-managed-environment 에러 발생 시:
 ````code
+export PATH=$PATH:/home/ubuntu/.local/bin
 python3 -m pip config set global.break-system-packages true
 ````
 
