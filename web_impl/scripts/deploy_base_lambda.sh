@@ -1,5 +1,5 @@
 # 1. Baseline 폴더로 이동
-cd /home/ubuntu/Cold-Start-Hot-Passion/baseline_src
+cd "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)/baseline_src"
 
 # 2. 코드 압축
 rm -f baseline_function.zip
