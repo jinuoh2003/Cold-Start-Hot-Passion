@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/ubuntu/Cold-Start-Hot-Passion/dummy_data
+cd "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)/dummy_data"
 
 BUCKET_NAME="demo-web-bucket"
 
@@ -22,5 +22,5 @@ rm dummy_10mb.txt dummy_50mb.txt dummy_100mb.txt
 
 echo "5. 테스트 호출용 Payload JSON 파일 생성 중..."
 
-echo "*** 모든 데이터 세팅 완료! 이제 10, 50, 100MB 페이로드로 테스트할 준비가 끝났습니다."
+echo "*** 모든 데이터 세팅 완료! 이제 10, 50, 100MB 페이로드로 테스트할 준비가 끝났습니다.***"
 awslocal s3 ls s3://$BUCKET_NAME --human-readable
