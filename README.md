@@ -73,7 +73,7 @@ sudo python3 ebpf_writer.py
 ````code
 #Docker 환경이 존재하지 않을 시 설치: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 cd shm_src
-sudo docker-compose up -d
+sudo docker compose up -d
 ````
 
 ### 4. Lambda function 빌드 및 배포
