@@ -71,6 +71,7 @@ sudo python3 ebpf_writer.py
 ### 3. MiniStack infra 구동
 호스트의 IPC 네임스페이스와 /dev/shm을 공유하도록 설정된 실험군 환경을 실행합니다.
 ````code
+#Docker 환경이 존재하지 않을 시 설치: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 cd shm_src
 sudo docker-compose up -d
 ````
