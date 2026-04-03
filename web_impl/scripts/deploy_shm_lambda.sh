@@ -1,5 +1,5 @@
 # 1. SHM 폴더로 이동
-cd /home/ubuntu/Cold-Start-Hot-Passion/shm_src
+cd "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)/shm_src"
 
 # 2. 코드 압축
 zip -r shm_function.zip . 
