@@ -50,6 +50,7 @@ sudo ./scripts/set_ebpf.sh
 
 # 2. Python 라이브러리 및 awslocal 설치
 bash ./scripts/set_zerocopy.sh
+sudo apt install zip
 pip install awscli-local
 ````
 [주의] externally-managed-environment 에러 발생 시:
