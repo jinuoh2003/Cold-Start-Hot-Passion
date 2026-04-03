@@ -98,6 +98,7 @@ sudo apt install npm -y
 npm install
 
 # 실행
+#ngrok token 에러 발생시 ngrok config add-authtoken <본인 ngrok 토큰> 명령어 실행
 node server.js
 ngrok http <포트>
 ````
